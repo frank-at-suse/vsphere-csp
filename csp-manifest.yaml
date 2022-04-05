@@ -111,11 +111,15 @@ spec:
     spec:
       serviceAccountName: vsphere-csi-webhook
       nodeSelector:
-        node-role.kubernetes.io/control-plane: ""
+        node-role.kubernetes.io/control-plane: "true"
+        node-role.kubernetes.io/etcd: "true"
       tolerations:
         - key: node-role.kubernetes.io/control-plane
           operator: Exists
           effect: NoSchedule
+        - key: node-role.kubernetes.io/etcd
+          operator: Exists
+          effect: NoExecute
         # uncomment below toleration if you need an aggressive pod eviction in case when
         # node becomes not-ready or unreachable. Default is 300 seconds if not specified.
         #- key: node.kubernetes.io/not-ready
