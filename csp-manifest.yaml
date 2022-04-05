@@ -181,9 +181,9 @@ spec:
     spec:
       serviceAccountName: vsphere-csi-webhook
       nodeSelector:
-        node-role.kubernetes.io/master: ""
+        node-role.kubernetes.io/control-plane: ""
       tolerations:
-        - key: node-role.kubernetes.io/master
+        - key: node-role.kubernetes.io/control-plane
           operator: Exists
           effect: NoSchedule
         # uncomment below toleration if you need an aggressive pod eviction in case when
@@ -224,11 +224,6 @@ spec:
         - name: webhook-certs
           secret:
             secretName: vsphere-webhook-certs
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: vmware-system-csi
 ---
 apiVersion: storage.k8s.io/v1 # For k8s 1.17 use storage.k8s.io/v1beta1
 kind: CSIDriver
